@@ -1,4 +1,4 @@
-import { JsonTodoCollection } from "./jsonTodoCollection";
+import { JsonTodoCollection } from "./JsonTodoCollection";
 import { TodoItem } from "./todoItem";
 
 let todos= [
