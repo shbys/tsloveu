@@ -27,6 +27,10 @@ npm init -y
     - `"rootDir": "./src"` means the project's TypeScript files can be found in the `src` folder
     - `"outDir": "./dist"` means the output the project produces should be placed in the `dist` folder
     - `"module": "commonjs"` means use `commonjs` standard for loading code from separate files
+    - `"noImplicitAny": true` means not allowed to use type `any`, use specific type instead
+    - `"strictNullChecks": true` means not allowed `null` or `undefined` values to be assigned to other types 
+    - `"noImplicitReturns": true` means require all paths in a function to return a result
+    - `"noUnusedParameters": true` means all parameters in a function must be used or a warning occured
 
 4. run js file: `npm run buildrun`
 

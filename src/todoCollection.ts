@@ -15,7 +15,7 @@ export class TodoCollection {
         todoItems.forEach(item => this.itemMap.set(item.id, item));
     }
 
-    getTodoById(id: number): TodoItem {
+    getTodoById(id: number): TodoItem | undefined {
         return this.itemMap.get(id);
     }
 
@@ -30,14 +30,14 @@ export class TodoCollection {
         return this.nextId;
     }
 
-    markComplete(id: number, complete: boolean) {
+    markComplete(id: number, complete: boolean) : void {
         const todoItem = this.getTodoById(id);
         if (todoItem) {
             todoItem.complete = complete;
         }
     }
 
-    removeComplete() {
+    removeComplete() : void {
         this.itemMap.forEach(o => {
             if (o.complete) {
                 this.itemMap.delete(o.id);
