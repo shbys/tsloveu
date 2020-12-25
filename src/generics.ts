@@ -20,15 +20,18 @@ class DataCollectionWithConstrain<T extends { name: string }> extends DataCollec
 
 class DataCollectionWithConstrains<T extends { name: string }, U extends { city: string }>
     extends DataCollection<T> {
+    private comboDataItems: (T&U)[] = [];
 
-    collate(targetData: U[]): (T & U)[] {
-        let results: (T & U)[] = [];
-        this.items.forEach(item=> {
-            targetData.forEach(o=> {
-                results.push({...o,...item});
+    collate(targetData: U[]): void {
+        this.items.forEach(item => {
+            targetData.forEach(o => {
+                this.comboDataItems.push({ ...o, ...item });
             });
         });
-        return results;
+    }
+
+    find(name: string): (T&U) | undefined{
+        return this.comboDataItems.find(o => o.name === name);
     }
 }
 
@@ -46,11 +49,11 @@ export function runGenerics(): void {
     let firstWithNamePro = dataWithNamePro.getItem(0);
     console.log(`first Obj With Name =  ${firstWithNamePro.name}`);
 
-    let dataWithNameCityPros = new DataCollectionWithConstrains<{ name: string },{ city: string }>(
+    let dataWithNameCityPros = new DataCollectionWithConstrains<{ name: string }, { city: string }>(
         { name: "Shoes" }, { name: "Computer" }, { name: "Umbrella" }
     );
-    let dataWithMameCityProsAfterCollate = dataWithNameCityPros.collate(
+    dataWithNameCityPros.collate(
         [{ city: "Parris" }, { city: "London" }, { city: "Shanghai" }]
     );
-    console.log(`NameCityData = ${JSON.stringify(dataWithMameCityProsAfterCollate)}`);
+    console.log(`first Obj With NameCity =  ${JSON.stringify(dataWithNameCityPros.find("Shoes"))}`);
 }
