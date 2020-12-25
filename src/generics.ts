@@ -20,7 +20,7 @@ class DataCollectionWithConstrain<T extends { name: string }> extends DataCollec
 
 class DataCollectionWithConstrains<T extends { name: string }, U extends { city: string }>
     extends DataCollection<T> {
-    private comboDataItems: (T&U)[] = [];
+    private comboDataItems: (T & U)[] = [];
 
     collate(targetData: U[]): void {
         this.items.forEach(item => {
@@ -30,8 +30,37 @@ class DataCollectionWithConstrains<T extends { name: string }, U extends { city:
         });
     }
 
-    find(name: string): (T&U) | undefined{
+    find(name: string): (T & U) | undefined {
         return this.comboDataItems.find(o => o.name === name);
+    }
+}
+
+type shapeType = { name: string };
+
+interface Collection<T extends shapeType> {
+    add(...newItems: T[]): void;
+    find(name: string): T | undefined;
+    count: number;
+}
+
+abstract class ArrayCollection<T extends shapeType> implements Collection<T> {
+    protected items: T[] = [];
+
+    add(...newItems: T[]): void {
+        this.items.push(...newItems);
+    }
+
+    abstract find(searchTerm: string): T | undefined;
+
+    get count(): number {
+        return this.items.length;
+    }
+}
+
+class ProductCollection extends ArrayCollection<{ name: string }>{
+    
+    find(searchTerm: string): { name: string } | undefined {
+        return this.items.find(item => item.name === searchTerm);
     }
 }
 
@@ -56,4 +85,9 @@ export function runGenerics(): void {
         [{ city: "Parris" }, { city: "London" }, { city: "Shanghai" }]
     );
     console.log(`first Obj With NameCity =  ${JSON.stringify(dataWithNameCityPros.find("Shoes"))}`);
+
+    let productCollection: Collection<{ name: string }> = new ProductCollection();
+    productCollection.add({ name: "Shoes" }, { name: "Computer" }, { name: "Umbrella" })
+    let productByFind = productCollection.find("Shoes");
+    console.log(`Product Coll Find Shoes =  ${productByFind?.name}`);
 }
