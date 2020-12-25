@@ -11,6 +11,7 @@ import { runClassesInheritance } from "./classes-inheritance";
 import { runInterfaceClasses } from "./interface-classes";
 import { runDynamicProperties } from "./dynamic-properties";
 import { runGenerics } from "./generics";
+import { runGenericsIterable } from "./generics-iterable";
 
 runTodo();
 console.log('---------------------------------------------------------------');
@@ -49,4 +50,7 @@ runDynamicProperties();
 console.log('---------------------------------------------------------------');
 
 runGenerics();
+console.log('---------------------------------------------------------------');
+
+runGenericsIterable();
 console.log('---------------------------------------------------------------');
