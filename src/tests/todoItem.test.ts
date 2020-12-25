@@ -1,4 +1,4 @@
-import { TodoItem } from "../todoItem";
+import { TodoItem } from "../todo/todoItem";
 
 
 test("check todoItem value", () => {
