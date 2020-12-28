@@ -1,4 +1,4 @@
-import { JsonTodoCollection } from "./JsonTodoCollection";
+import { TodoCollection } from "./todoCollection";
 import { TodoItem } from "./todoItem";
 
 export function runTodo(): void {
@@ -9,7 +9,7 @@ export function runTodo(): void {
         new TodoItem(4, "Call Joe", true)
     ];
 
-    let collection = new JsonTodoCollection("Adam", todos);
+    let collection = new TodoCollection("Adam", todos);
     let newId = collection.addTodo("Go for run");
     let todoItem = collection.getTodoById(newId);
     console.log(JSON.stringify(todoItem));
